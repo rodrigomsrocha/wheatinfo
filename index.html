@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
@@ -16,17 +21,20 @@
     <div class="container">
       <section class="weather">
         <div class="city">
-          <h1 class="city-name">London</h1>
+          <h1 class="city-name">
+            Londres, <br />
+            Reino Unido
+          </h1>
         </div>
         <div class="main-info">
-          <strong class="temperature">16ºC</strong>
-          <span class="date">sunday, 28 Feb</span>
+          <strong class="temperature">4.5ºC</strong>
+          <span class="date">Seg, 01 Mar</span>
           <div class="weather-description">
             <img
-              src="https://openweathermap.org/img/wn/13n@2x.png"
+              src="https://openweathermap.org/img/wn/50n@2x.png"
               alt="snow"
             />
-            <span class="weather-name">Snow</span>
+            <span class="weather-name">Neblina</span>
           </div>
         </div>
       </section>
@@ -37,20 +45,20 @@
             id="location"
             type="text"
             class="location"
-            placeholder="city or state name"
+            placeholder="Nome da cidade"
           />
           <button type="button">
             <img src="./img/icons/loupe.svg" alt="search" />
           </button>
         </form>
         <div class="weather-details">
-          <h2>Weather details</h2>
+          <h2>Detalhes do clima</h2>
           <ul class="infos">
-            <li class="humidity"><span>Humidity</span>93%</li>
-            <li class="clouds"><span>Clouds</span>90%</li>
-            <li class="wind"><span>Wind</span>3.6Km/h</li>
+            <li class="humidity"><span>Humidade</span>93%</li>
+            <li class="clouds"><span>Nuvens</span>90%</li>
+            <li class="wind"><span>Vento</span>3.6Km/h</li>
           </ul>
-          <h2>Next days</h2>
+          <h2>Proximos dias</h2>
           <ul class="infos">
             <li><span>01/03</span>14,3ºC</li>
             <li><span>02/03</span>14,3ºC</li>
@@ -61,5 +69,7 @@
         </div>
       </div>
     </div>
+
+    <script src="scripts/script.js"></script>
   </body>
 </html>
