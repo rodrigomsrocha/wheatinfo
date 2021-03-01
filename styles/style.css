@@ -1,8 +1,16 @@
 * {
   box-sizing: border-box;
 }
+html {
+  height: 100%;
+}
 body {
   font-family: "Roboto", Arial;
+  height: 100%;
+  background-image: url("../img/weathers/snow.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: -1434px -1094px;
 }
 
 body,
@@ -31,25 +39,23 @@ li {
 
 /* Estrutura */
 .container {
-  background-image: url("../img/weathers/snow.jpg");
-  background-repeat: no-repeat;
-  background-position: -1434px -1094px;
-  background-size: auto;
   display: grid;
   grid-template-columns: 2fr minmax(500px, 1fr);
-  height: calc(100vh);
   position: relative;
+  height: 100%;
 }
 .weather {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 620px 1fr;
+  grid-template-rows: 1fr minmax(200px, 240px);
   color: white;
   line-height: auto;
+  height: 100%;
 }
 .weather h1 {
   font-size: 3rem;
   font-weight: 400;
+  grid-row: 1;
 }
 
 .city {
@@ -64,7 +70,9 @@ li {
   background-color: #000;
   padding: 15px;
   border-radius: 0 5px 5px 0;
-  margin-bottom: 60px;
+  grid-row: 2;
+  grid-column: 1;
+  align-self: start;
 }
 
 .main-info strong {
@@ -107,6 +115,7 @@ li {
   backdrop-filter: blur(30px);
   padding: 60px;
   padding-bottom: 0;
+  height: 100%;
 }
 
 .more-details form {
