@@ -1,0 +1,85 @@
+body {
+  font-family: "Roboto", Arial;
+}
+
+body,
+p,
+h1,
+h2,
+ul,
+li,
+span {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+span,
+li {
+  font-size: 1.125rem;
+}
+
+/* Estrutura */
+.container {
+  background-image: url("../img/weathers/snow.jpg");
+  background-repeat: no-repeat;
+  background-position: -1434px -1094px;
+  background-size: 4032px;
+  display: grid;
+  grid-template-columns: 2fr minmax(590px, 1fr);
+  height: calc(100vh);
+  position: relative;
+}
+.weather {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  line-height: 1;
+}
+.weather h1 {
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+.main-info {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+  background-color: #000;
+  position: absolute;
+  left: 0;
+  top: 65%;
+  padding: 30px 45px 30px 30px;
+  border-radius: 0 5px 5px 0;
+}
+
+.main-info strong {
+  font-size: 8.5rem;
+  font-weight: 700;
+  margin-right: 30px;
+}
+
+.main-info span:first-child {
+  margin-right: 30px;
+}
+.main-info .date::after {
+  content: "";
+  width: 1px;
+  height: 100px;
+  background-color: #fff;
+  display: inline-block;
+  margin-left: 30px;
+  margin-right: 45px;
+}
+
+.main-info img {
+  position: absolute;
+  top: 43px;
+  right: 30px;
+  width: 75px;
+}
