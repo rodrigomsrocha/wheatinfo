@@ -9,8 +9,8 @@ body {
   height: 100%;
   background-image: url("../img/weathers/snow.jpg");
   background-repeat: no-repeat;
-  background-size: auto;
-  background-position: -1434px -1094px;
+  background-size: cover;
+  /* background-position: -1434px -1094px; */
 }
 
 body,

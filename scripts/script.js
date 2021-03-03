@@ -7,6 +7,26 @@ const searchButton = document.querySelector("button");
 const searchInput = document.querySelector(".location");
 const form = document.querySelector(".search");
 
+const animeInfo = () => {
+  anime({
+    targets: ".main-info",
+    translateX: [-800, 0],
+    delay: 400,
+    easing: "spring(0, 10, 10, 20)",
+  });
+};
+
+const animeCityName = () => {
+  anime({
+    targets: ".city-name",
+    opacity: [0, 1],
+    translateY: [-40, 0],
+    duration: 700,
+    delay: 400,
+    easing: "easeOutElastic(1, .6)",
+  });
+};
+
 async function getCoords(cityName) {
   const latLon = await fetch(urlLatLon(cityName));
   const latLonData = await latLon.json();
@@ -48,6 +68,7 @@ function showWeatherTemp({ current, current: { weather } }) {
   const temperature = document.querySelector(".temperature");
   const weatherName = document.querySelector(".weather-name");
   const weatherImg = document.querySelector(".weather-description img");
+  document.body.style.backgroundImage = `url('../img/weathers/${weather[0].main.toLowerCase()}.jpg')`;
 
   console.log(weather, current);
   temperature.innerText = `${current.temp.toFixed(1)}ºC`;
@@ -57,7 +78,9 @@ function showWeatherTemp({ current, current: { weather } }) {
 
 searchButton.addEventListener("click", async (e) => {
   const coords = await getCoords(searchInput.value);
-  getWeather(coords);
+  await getWeather(coords);
+  animeInfo();
+  animeCityName();
 });
 
 form.addEventListener("submit", (e) => {
