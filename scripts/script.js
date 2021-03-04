@@ -1,3 +1,4 @@
+import anime from "../node_modules/animejs/lib/anime.es.js";
 const apiKey = "3c3b648ddb3385500b31cf35f9aa2167";
 const urlLatLon = (cityName) =>
   `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
@@ -36,8 +37,8 @@ async function getCoords(cityName) {
 }
 
 async function getAndShowCityName(lon, lat) {
-  const apiKey = "b2c693299fe54c9abe92324f6bc7eddf";
-  const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat},${lon}&key=${apiKey}`;
+  const latLonApiKey = "b2c693299fe54c9abe92324f6bc7eddf";
+  const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat},${lon}&key=${latLonApiKey}`;
 
   const cityInfo = await fetch(url);
   const cityInfoData = await cityInfo.json();
