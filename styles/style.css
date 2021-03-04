@@ -40,7 +40,7 @@ li {
 /* Estrutura */
 .container {
   display: grid;
-  grid-template-columns: 2fr minmax(500px, 1fr);
+  grid-template-columns: 2fr 1fr;
   position: relative;
   height: 100%;
 }
@@ -128,7 +128,7 @@ li {
   border-radius: 5px;
   background-color: #000;
   color: #fff;
-  width: 380px;
+  width: 100%;
   padding: 25px 20px;
   font-size: 1.125rem;
   margin-bottom: 60px;

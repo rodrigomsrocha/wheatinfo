@@ -1,4 +1,5 @@
 import anime from "../node_modules/animejs/lib/anime.es.js";
+
 const apiKey = "3c3b648ddb3385500b31cf35f9aa2167";
 const urlLatLon = (cityName) =>
   `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
@@ -28,14 +29,6 @@ const animeCityName = () => {
   });
 };
 
-async function getCoords(cityName) {
-  const latLon = await fetch(urlLatLon(cityName));
-  const latLonData = await latLon.json();
-  const { lon, lat } = await latLonData.coord;
-  getAndShowCityName(lon, lat);
-  return { lon, lat };
-}
-
 async function getAndShowCityName(lon, lat) {
   const latLonApiKey = "b2c693299fe54c9abe92324f6bc7eddf";
   const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat},${lon}&key=${latLonApiKey}`;
@@ -49,20 +42,24 @@ async function getAndShowCityName(lon, lat) {
 
   cityNameTitle.innerText = `${
     inputValue.indexOf(" ") > 0
-      ? inputValue.split(" ")[0].charAt(0).toUpperCase() +
-        inputValue.slice(1, inputValue.indexOf(" ")) +
-        " " +
-        inputValue.split(" ")[1].charAt(0).toUpperCase() +
-        inputValue.slice(inputValue.indexOf(" ") + 2)
+      ? `${
+          inputValue.split(" ")[0].charAt(0).toUpperCase() +
+          inputValue.slice(1, inputValue.indexOf(" "))
+        } ${
+          inputValue.split(" ")[1].charAt(0).toUpperCase() +
+          inputValue.slice(inputValue.indexOf(" ") + 2)
+        }`
       : inputValue.charAt(0).toUpperCase() + inputValue.slice(1)
   },
       ${cityInfoData.results[0].components.country}`;
 }
 
-async function getWeather({ lon, lat }) {
-  const weatherInfo = await fetch(urlWeather(lat, lon));
-  const weatherInfoData = await weatherInfo.json();
-  showWeatherTemp(weatherInfoData);
+async function getCoords(cityName) {
+  const latLon = await fetch(urlLatLon(cityName));
+  const latLonData = await latLon.json();
+  const { lon, lat } = await latLonData.coord;
+  getAndShowCityName(lon, lat);
+  return { lon, lat };
 }
 
 function showWeatherTemp({ current, current: { weather } }) {
@@ -77,7 +74,13 @@ function showWeatherTemp({ current, current: { weather } }) {
   weatherImg.src = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
 }
 
-searchButton.addEventListener("click", async (e) => {
+async function getWeather({ lon, lat }) {
+  const weatherInfo = await fetch(urlWeather(lat, lon));
+  const weatherInfoData = await weatherInfo.json();
+  showWeatherTemp(weatherInfoData);
+}
+
+searchButton.addEventListener("click", async () => {
   const coords = await getCoords(searchInput.value);
   await getWeather(coords);
   animeInfo();
