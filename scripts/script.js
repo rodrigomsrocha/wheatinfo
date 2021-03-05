@@ -36,22 +36,13 @@ async function getAndShowCityName(lon, lat) {
   const cityInfo = await fetch(url);
   const cityInfoData = await cityInfo.json();
 
-  const inputValue = searchInput.value;
-
   const cityNameTitle = document.querySelector(".city-name");
 
   cityNameTitle.innerText = `${
-    inputValue.indexOf(" ") > 0
-      ? `${
-          inputValue.split(" ")[0].charAt(0).toUpperCase() +
-          inputValue.slice(1, inputValue.indexOf(" "))
-        } ${
-          inputValue.split(" ")[1].charAt(0).toUpperCase() +
-          inputValue.slice(inputValue.indexOf(" ") + 2)
-        }`
-      : inputValue.charAt(0).toUpperCase() + inputValue.slice(1)
+    cityInfoData.results[0].components.hamlet ||
+    cityInfoData.results[0].components.region
   },
-      ${cityInfoData.results[0].components.country}`;
+    ${cityInfoData.results[0].components.country}`;
 }
 
 async function getCoords(cityName) {
@@ -68,16 +59,32 @@ function showWeatherTemp({ current, current: { weather } }) {
   const weatherImg = document.querySelector(".weather-description img");
   document.body.style.backgroundImage = `url('../img/weathers/${weather[0].main.toLowerCase()}.jpg')`;
 
-  console.log(weather, current);
   temperature.innerText = `${current.temp.toFixed(1)}ºC`;
   weatherName.innerText = weather[0].description;
   weatherImg.src = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
+}
+
+function getAndShowTime({ current: { dt: currentMinutes } }) {
+  const dateEl = document.querySelector(".date");
+  const date = new Date(currentMinutes * 1000);
+  const weekday = date
+    .toLocaleString("pt-BR", { weekday: "short" })
+    .replace(".", ",");
+  const day = date.toLocaleString("pt-BR", { day: "2-digit" }).replace(".", "");
+  const month = date
+    .toLocaleString("pt-BR", { month: "short" })
+    .replace(".", "");
+
+  dateEl.innerHTML = `${
+    weekday.charAt(0).toUpperCase() + weekday.slice(1)
+  } ${day} ${month.charAt(0).toUpperCase() + month.slice(1)}`;
 }
 
 async function getWeather({ lon, lat }) {
   const weatherInfo = await fetch(urlWeather(lat, lon));
   const weatherInfoData = await weatherInfo.json();
   showWeatherTemp(weatherInfoData);
+  getAndShowTime(weatherInfoData);
 }
 
 searchButton.addEventListener("click", async () => {
@@ -86,6 +93,23 @@ searchButton.addEventListener("click", async () => {
   animeInfo();
   animeCityName();
 });
+
+window.onload = async () => {
+  const cityList = [
+    "Houston",
+    "Atlanta",
+    "Honolulu",
+    "Paris",
+    "Belo Horizonte",
+    "São Paulo",
+  ];
+  const randomCity = cityList[Math.round(Math.random() * cityList.length - 1)];
+  console.log(randomCity);
+  const coords = await getCoords(randomCity);
+  await getWeather(coords);
+  animeInfo();
+  animeCityName();
+};
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
